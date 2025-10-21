@@ -16,10 +16,11 @@ public class User {
 
     public User() {}
 
-    public User(long id, String firstName, String lastName, String passwordHash, UserRole role) {
+    public User(long id, String firstName, String lastName, String login, String passwordHash, UserRole role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.login = login;
         this.passwordHash = passwordHash;
         this.role = role;
     }
@@ -45,7 +46,6 @@ public class User {
     public UserRole getRole() {
         return role;
     }
-
 
     public void setId(long id) {
         this.id = id;
