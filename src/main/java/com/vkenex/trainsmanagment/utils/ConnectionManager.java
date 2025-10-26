@@ -6,13 +6,13 @@ import java.sql.SQLException;
 
 public class ConnectionManager {
 
-    private final String DB_URL = "db.url";
-    private final String DB_USER = "db.user";
-    private final String DB_PASSWORD = "db.password";
+    private static final String DB_URL = "db.url";
+    private static final String DB_USER = "db.user";
+    private static final String DB_PASSWORD = "db.password";
 
     public ConnectionManager() {}
 
-    public Connection getConnection() {
+    public static Connection open() {
         try {
             return DriverManager.getConnection(PropertiesManager.getProperty(DB_URL),
                     PropertiesManager.getProperty(DB_USER),

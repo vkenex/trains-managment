@@ -4,9 +4,9 @@ import com.vkenex.trainsmanagment.entity.enums.WagonType;
 
 public class Wagon {
 
-    private Long id;
-    private int wagonNumber;
-    private WagonType wagonType;
+    private long id;
+    private int Number;
+    private WagonType type;
     private int seatCount;
 
     private Long trainId;
@@ -14,10 +14,10 @@ public class Wagon {
     public Wagon() {
     }
 
-    public Wagon(Long id, int wagonNumber, WagonType wagonType, int seatCount, Long trainId) {
+    public Wagon(long id, int Number, WagonType type, int seatCount, Long trainId) {
         this.id = id;
-        this.wagonNumber = wagonNumber;
-        this.wagonType = wagonType;
+        this.Number = Number;
+        this.type = type;
         this.seatCount = seatCount;
         this.trainId = trainId;
     }
@@ -30,20 +30,20 @@ public class Wagon {
         this.id = id;
     }
 
-    public int getWagonNumber() {
-        return wagonNumber;
+    public int getNumber() {
+        return Number;
     }
 
-    public void setWagonNumber(int wagonNumber) {
-        this.wagonNumber = wagonNumber;
+    public void setNumber(int number) {
+        this.Number = number;
     }
 
-    public WagonType getWagonType() {
-        return wagonType;
+    public WagonType getType() {
+        return type;
     }
 
-    public void setWagonType(WagonType wagonType) {
-        this.wagonType = wagonType;
+    public void setType(WagonType type) {
+        this.type = type;
     }
 
     public int getSeatCount() {

@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 
 public class Train {
 
-    private Long id;
+    private long id;
     private int number;
 
-    private Long departureStationId;
-    private Long arrivalStationId;
+    private long departureStationId;
+    private long arrivalStationId;
 
     private LocalDateTime timeOfDeparture;
     private LocalDateTime timeOfArrival;
@@ -17,9 +17,10 @@ public class Train {
 
     public Train() {}
 
-    public Train(int number, Long departureStationId, Long arrivalStationId,
+    public Train(long id, int number, long departureStationId, long arrivalStationId,
                  LocalDateTime timeOfDeparture,
                  LocalDateTime timeOfArrival) {
+        this.id = id;
         this.number = number;
         this.departureStationId = departureStationId;
         this.arrivalStationId = arrivalStationId;
