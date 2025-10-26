@@ -43,7 +43,7 @@ public abstract class AbstractDAO<K, T> implements DAO<K, T> {
     public Optional<T> findById(K id) throws SQLException {
         try (Connection connection = ConnectionManager.open();
              PreparedStatement preparedStatement = connection.prepareStatement(getFindByIdQuery())) {
-            preparedStatement.setObject(1, id); // setObject универсален для разных типов ключей
+            preparedStatement.setObject(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             return resultSet.next() ? Optional.of(build(resultSet)) : Optional.empty();
         }

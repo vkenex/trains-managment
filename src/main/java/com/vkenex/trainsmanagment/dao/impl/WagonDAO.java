@@ -25,20 +25,6 @@ public class WagonDAO extends AbstractDAO<Long, Wagon> {
 
     public static WagonDAO getInstance() { return INSTANCE; }
 
-    // Реализация уникального для WagonDAO метода
-    public List<Wagon> findAllByTrainId(Long trainId) throws SQLException {
-        List<Wagon> wagons = new ArrayList<>();
-        try (Connection connection = ConnectionManager.open();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_TRAIN_ID)) {
-            preparedStatement.setLong(1, trainId);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                wagons.add(build(resultSet));
-            }
-        }
-        return wagons;
-    }
-
     @Override
     protected String getCreateQuery() { return CREATE; }
 
@@ -70,6 +56,19 @@ public class WagonDAO extends AbstractDAO<Long, Wagon> {
         statement.setInt(3, wagon.getSeatCount());
         statement.setLong(4, wagon.getTrainId());
         statement.setLong(5, wagon.getId());
+    }
+
+    public List<Wagon> findAllByTrainId(Long trainId) throws SQLException {
+        List<Wagon> wagons = new ArrayList<>();
+        try (Connection connection = ConnectionManager.open();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_TRAIN_ID)) {
+            preparedStatement.setLong(1, trainId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                wagons.add(build(resultSet));
+            }
+        }
+        return wagons;
     }
 
     @Override

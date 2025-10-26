@@ -3,9 +3,13 @@ package com.vkenex.trainsmanagment.dao.impl;
 import com.vkenex.trainsmanagment.dao.AbstractDAO;
 import com.vkenex.trainsmanagment.entity.User;
 import com.vkenex.trainsmanagment.entity.enums.UserRole;
+import com.vkenex.trainsmanagment.utils.ConnectionManager;
+
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class UserDAO extends AbstractDAO<Long, User> {
     private static final UserDAO INSTANCE = new UserDAO();
@@ -13,6 +17,7 @@ public class UserDAO extends AbstractDAO<Long, User> {
     private static final String CREATE = "INSERT INTO users (id, first_name, last_name, login, password_hash, role) VALUES (?, ?, ?, ?, ?, ?::user_role_enum)";
     private static final String FIND_ALL = "SELECT id, first_name, last_name, login, password_hash, role FROM users";
     private static final String FIND_BY_ID = FIND_ALL + " WHERE id = ?";
+    private static final String FIND_BY_LOGIN = FIND_ALL + " WHERE login = ?";
     private static final String UPDATE = "UPDATE users SET first_name = ?, last_name = ?, login = ?, password_hash = ?, role = ?::user_role_enum WHERE id = ?";
     private static final String DELETE = "DELETE FROM users WHERE id = ?";
 
@@ -36,6 +41,16 @@ public class UserDAO extends AbstractDAO<Long, User> {
 
     @Override
     protected String getDeleteQuery() { return DELETE; }
+
+    public Optional<User> findByLogin(String login) throws SQLException {
+        try (Connection connection = ConnectionManager.open();
+             PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_LOGIN)) {
+            preparedStatement.setString(1, login);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet.next() ? Optional.of(build(resultSet)) : Optional.empty();
+        }
+    }
 
     @Override
     protected void saveStatement(PreparedStatement statement, User user) throws SQLException {
