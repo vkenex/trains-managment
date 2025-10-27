@@ -34,7 +34,11 @@ public class UserService {
         return userDAO.findAll();
     }
 
-    public User createUser(User user) throws SQLException, ValidationException {
+    public Optional<User> findById(Long userId) throws SQLException {
+        return userDAO.findById(userId);
+    }
+
+    public User create(User user) throws SQLException, ValidationException {
         if (userDAO.findByLogin(user.getLogin()).isPresent()) {
             throw new ValidationException("Пользователь с логином '" + user.getLogin() + "' уже существует.");
         }
@@ -45,11 +49,12 @@ public class UserService {
         return userDAO.save(user);
     }
 
-    public void updateUser(User user) throws SQLException {
+    public void update(User user) throws SQLException {
         userDAO.update(user);
     }
 
-    public boolean deleteUser(Long id) throws SQLException {
+    public boolean delete(Long id) throws SQLException {
         return userDAO.delete(id);
     }
+
 }

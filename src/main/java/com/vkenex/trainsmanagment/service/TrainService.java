@@ -9,7 +9,6 @@ import com.vkenex.trainsmanagment.entity.Train;
 import com.vkenex.trainsmanagment.entity.Wagon;
 import com.vkenex.trainsmanagment.exception.ValidationException;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public class TrainService {
         return INSTANCE;
     }
 
-    public List<TrainDto> findAllTrains() throws SQLException {
+    public List<TrainDto> findAll() throws SQLException {
         List<Train> trains = trainDAO.findAll();
         Map<Long, Station> stationMap = stationDAO.findAll().stream()
                 .collect(Collectors.toMap(Station::getId, station -> station));
@@ -53,7 +52,7 @@ public class TrainService {
         return result;
     }
 
-    public Optional<TrainDto> findTrainById(Long id) throws SQLException {
+    public Optional<TrainDto> findById(Long id) throws SQLException {
         Optional<Train> trainOptional = trainDAO.findById(id);
         if (trainOptional.isEmpty()) {
             return Optional.empty();
@@ -76,7 +75,7 @@ public class TrainService {
     }
 
     public void createTrainWithWagons(Train train, List<Wagon> wagons) throws SQLException, ValidationException {
-        createTrain(train);
+        create(train);
 
         for (Wagon wagon : wagons) {
             wagon.setTrainId(train.getId());
@@ -84,7 +83,7 @@ public class TrainService {
         }
     }
 
-    public void createTrain(Train train) throws SQLException, ValidationException {
+    public void create(Train train) throws SQLException, ValidationException {
         if (train.getTimeOfArrival().isBefore(train.getTimeOfDeparture())) {
             throw new ValidationException("Время прибытия не может быть раньше времени отправления.");
         }
@@ -92,14 +91,14 @@ public class TrainService {
     }
 
 
-    public void updateTrain(Train train) throws SQLException, ValidationException {
+    public void update(Train train) throws SQLException, ValidationException {
         if (train.getTimeOfArrival().isBefore(train.getTimeOfDeparture())) {
             throw new ValidationException("Время прибытия не может быть раньше времени отправления.");
         }
         trainDAO.update(train);
     }
 
-    public boolean deleteTrain(Long id) throws SQLException {
+    public boolean delete(Long id) throws SQLException {
         return trainDAO.delete(id);
     }
 

@@ -1,4 +1,4 @@
-package com.vkenex.trainsmanagment.servlet;
+package com.vkenex.trainsmanagment.servlet.auth;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

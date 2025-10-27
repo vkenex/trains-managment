@@ -18,7 +18,7 @@ public class WagonService {
         return INSTANCE;
     }
 
-    public List<Wagon> findWagonsByTrainId(Long trainId) throws SQLException {
+    public List<Wagon> findAllByTrainId(Long trainId) throws SQLException {
         return wagonDAO.findAllByTrainId(trainId);
     }
 
@@ -27,7 +27,7 @@ public class WagonService {
     }
 
     public Wagon add(Wagon wagon) throws SQLException, ValidationException {
-        Optional<Wagon> existingWagon = findWagonsByTrainId(wagon.getTrainId()).stream()
+        Optional<Wagon> existingWagon = findAllByTrainId(wagon.getTrainId()).stream()
                 .filter(w -> w.getNumber() == wagon.getNumber())
                 .findFirst();
 
@@ -39,7 +39,7 @@ public class WagonService {
     }
 
     public void update(Wagon wagon) throws SQLException, ValidationException {
-        Optional<Wagon> conflictingWagon = findWagonsByTrainId(wagon.getTrainId()).stream()
+        Optional<Wagon> conflictingWagon = findAllByTrainId(wagon.getTrainId()).stream()
                 .filter(w -> w.getNumber() == wagon.getNumber() && !w.getId().equals(wagon.getId()))
                 .findFirst();
 
@@ -53,4 +53,5 @@ public class WagonService {
     public boolean delete(Long id) throws SQLException {
         return wagonDAO.delete(id);
     }
+
 }

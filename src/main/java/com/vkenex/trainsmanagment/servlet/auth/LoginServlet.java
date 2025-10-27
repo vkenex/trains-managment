@@ -1,4 +1,4 @@
-package com.vkenex.trainsmanagment.servlet;
+package com.vkenex.trainsmanagment.servlet.auth;
 
 import com.vkenex.trainsmanagment.entity.User;
 import com.vkenex.trainsmanagment.service.UserService;
@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //getServletContext().getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
                 resp.sendRedirect(req.getContextPath() + "/trains");
             } else {
                 req.setAttribute("error", "Неверный логин или пароль");
-                //getServletContext().getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
+                getServletContext().getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(req, resp);
             }
         } catch (SQLException e) {
             throw new ServletException("Ошибка базы данных при попытке входа", e);
